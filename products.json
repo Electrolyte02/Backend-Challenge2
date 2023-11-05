@@ -1,0 +1,18 @@
+[
+    {
+        "code":349,
+        "title":"Test lectura",
+        "description":"P/probar",
+        "price":350,
+        "thumbnail":"nop",
+        "stock":5000
+    },
+    {
+        "code":350,
+        "title":"Test lectura2",
+        "description":"P/probar2",
+        "price":800,
+        "thumbnail":"nop",
+        "stock":6500
+    }
+]

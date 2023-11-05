@@ -1,8 +1,21 @@
+const fs = require('fs');
+
 class ProductManager{
-    constructor(){
+    constructor(fileName){
         this.products=[];
         this.productsId = 1;
-    }
+        this.fileName = fileName;
+        if (fs.existsSync(fileName)) {
+            try {
+              let products = fs.readFileSync(fileName, "utf-8");
+              this.products = JSON.parse(products);
+            } catch (error) {
+              this.products = [];
+            }
+          } else {
+            this.products = [];
+          }
+        }
 
     addProduct(product) {
         let aux = true;
@@ -44,12 +57,27 @@ class ProductManager{
         }
     }
     
+    async saveFile(data) {
+        try 
+        {
+          await fs.promises.writeFile(
+            this.fileName,
+            JSON.stringify(data, null, "\t")
+          );
+          return true;
+        } 
+        catch (error) 
+        {
+          console.log(error);
+          return false;
+        }
+      }
 
-    getProducts(){
+    async getProducts(){
         return this.products;
     }
 
-    getProductById(id){
+    async getProductById(id){
         let auxProd = null;
         this.products.forEach(product => {
             if (product.id==id){
@@ -75,3 +103,5 @@ class Product{
         this.stock=stock;
     }
 }
+
+let testManager = new ProductManager("./products.json");
